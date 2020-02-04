@@ -37,3 +37,9 @@ int Color::magnitude()
     int ret = (int) mag;
     return ret;
 }
+
+int Color::compare(Color rhs)
+{
+    int mag1 = magnitude();
+    int mag2 = rhs.magnitude();
+}

@@ -12,6 +12,7 @@ public:
     std::string to_string();
     std::string colorize(std::string text);
     int magnitude();
+    int compare(Color rhs);
 };
 
 #endif
