@@ -4,9 +4,9 @@
 
 class Color
 {
-    int red;
-    int green;
-    int blue;
+    int _red;
+    int _green;
+    int _blue;
 public:
     Color(int r,int g, int b);
     std::string to_string();
