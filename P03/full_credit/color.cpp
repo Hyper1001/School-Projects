@@ -35,16 +35,15 @@ std::string Color::to_string()
 
 std::ostream& operator<<(std::ostream& ost, const Color& color)
 {
-    if(color._reset == true)
+    if(color._reset ==true)
     {
         ost << "\033[0m\n";
-        return ost;
     }
     else
     {
         ost <<"\033[38;2;" <<std::to_string(color._red)<<";"<<std::to_string(color._green)<<";"<<std::to_string(color._blue)<<"m";
-        return ost;
     }
+    return ost;
 }
 
 std::istream& operator>>(std::istream& is, Color& color) //cant figure out errors
