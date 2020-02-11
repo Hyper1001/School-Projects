@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ostream>
 #include "color.h"
 #include <string>
 
@@ -34,7 +35,7 @@ std::string Color::to_string()
 
 std::ostream& operator<<(std::ostream& ost, const Color& color)
 {
-    if(_reset = true)
+    if(color._reset == true)
     {
         ost << "\033[0m\n";
         return ost;
@@ -44,4 +45,15 @@ std::ostream& operator<<(std::ostream& ost, const Color& color)
         ost <<"\033[38;2;" <<std::to_string(color._red)<<";"<<std::to_string(color._green)<<";"<<std::to_string(color._blue)<<"m";
         return ost;
     }
+}
+
+std::istream& operator>>(std::istream& is, Color& color) //cant figure out errors
+{
+    std::cout<<"Please enter a RGB for red: ";
+    std::cin>>color._red;
+    std::cout<<"Please enter a RGB for green: ";
+    std::cin>>color._green;
+    std::cout<<"Please enter a RGB for blue: ";
+    std::cin>>color._blue;
+    color._reset = false;
 }

@@ -1,7 +1,7 @@
-    #ifndef __COLOR_H
+#ifndef __COLOR_H
 #define __COLOR_H
 #include <string>
-
+#include <ostream>
 class Color
 {
 private:
@@ -13,8 +13,8 @@ public:
     Color();
     Color(int r,int g, int b);
     std::string to_string();
-    friend ostream& operator<<(ostream& ost, const Color& color)
-    friend istream& operator>>(istream& ist, Color& color)
+    friend std::ostream& operator<<(std::ostream& ost, const Color& color);
+    friend std::istream& operator>>(std::istream& ist, Color& color);
 };
 
 #endif
