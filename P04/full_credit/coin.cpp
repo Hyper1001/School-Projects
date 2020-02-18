@@ -6,6 +6,7 @@ Coin::Coin(Coin_size fsize, Year year)
 {
     _size = fsize;
     _year = year;
+    _notes = nullptr;
     LOG("Coin::Coin");
 }
 
@@ -13,6 +14,7 @@ Coin::Coin(const Coin& rhs)
 {
     _size = rhs._size;
     _year = rhs._year;
+
     LOG("Coin::Coin copy constructor");
 }
 
@@ -26,6 +28,11 @@ Coin& operator=(const Coin& rhs)
 add_note(std::string s)
 {
 
+}
+
+Coin::~Coin()
+{
+    LOG("Coin::~Coin");
 }
 
 std::istream& operator>>(std::istream& ist, Coin& coin) //cant figure out errors
