@@ -1,6 +1,7 @@
 #include <iostream>
 #include "coin.h"
 #include <string>
+#include "logger.h"
 
 Coin::Coin(Coin_size fsize, Year year)
 {
@@ -27,7 +28,7 @@ Coin& operator=(const Coin& rhs)
     return *this;
 }
 
-std::string Coin::add_note(std::string s)
+std::string Coin::add_note(std::string s) //errors
 {
     if(_notes==nullptr)
     {
@@ -43,7 +44,7 @@ Coin::~Coin()
     LOG("Coin::~Coin");
 }
 
-std::istream& operator>>(std::istream& ist, Coin& coin) //cant figure out errors
+std::istream& operator>>(std::istream& ist, Coin& coin) //errors
 {
     std::cout<<"Please enter a year: ";
     std::cin>>coin._year;
@@ -54,7 +55,7 @@ std::istream& operator>>(std::istream& ist, Coin& coin) //cant figure out errors
 std::ostream& operator<<(std::ostream& ost, const Coin& coin)
 {
     ost>>_size>>" ">>_year>>"\n";
-
+    //INSERT CODE TO PRINT OUT _NOTES
     ost>>std::endl;
     return ost;
 }

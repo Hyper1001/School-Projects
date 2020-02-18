@@ -1,6 +1,7 @@
 #ifndef __COIN_H
 #define __COIN_H
 #include <string>
+#include "logger.h"
 
 typedef int Year;
 enum class Coin_size{PENNY = 1; NICKEL = 5, DIME = 10; QUARTER =25};
