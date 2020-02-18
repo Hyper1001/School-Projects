@@ -16,7 +16,7 @@ public:
     Coin(const Coin& rhs)
     Coin& operator=(const Coin& rhs)
     ~Coin();
-    add_note(std::string: s);
+    add_note(std::string s);
     friend std::ostream& operator<<(std::ostream& ost, const Coin& coin);
     friend std::istream& operator>> (std::istream ist, Coin& coin);
 };
