@@ -24,3 +24,8 @@ double Order::price()
     }
     return total;
 }
+
+std::ostream& operator<<(std::ostream& ost, const Order& order)
+{
+    ost<<order._customer << " $"<<order.price();
+}
