@@ -82,6 +82,86 @@ Mainwin::~Mainwin()
     delete(store);//frees store from memory
 }
 
+void on_view_peripheral_click()
+{
+
+}
+void on_view_desktop_click()
+{
+
+}
+void on_view_order_click()
+{
+
+}
+void on_view_customer_click()
+{
+
+}
+void on_insert_peripheral_click()
+{
+
+}
+void on_insert_desktop_click()
+{
+
+}
+void on_insert_order_click()
+{
+
+}
+void on_insert_customer_click()
+{
+
+}
+
+void Mainwin::on_about_click()
+{
+    Gtk::AboutDialog dialog;
+    dialog.set_transient_for(*this);
+    dialog.set_program_name("ELSA -  Exceptional Laptops and Supercomputers Always");
+    auto logo = Gdk::Pixbuf::create_from_file("logo.png");//add later if i have time
+    dialog.set_logo(logo);
+    dialog.set_license_type(Gtk::License_GPL_3_0);
+    std::vector <Glib::ustring> name = {"George Vo"};
+    dialog.set_authors(name);
+    dialog.run();
+}
+
+void Mainwin::set_data(std::string s)
+{
+    data -> set_label(s);
+}
+
+void Mainwin::set_msg(std::string s)
+{
+    msg -> set_label(s);
+}
+
+std::string Mainwin::get_string(std::string prompt)
+{
+    EntryDialog dialog{*this, prompt};
+    dialog.run();
+    return dialog.get_text();
+}
+
+double Mainwin::get_double(std::string prompt)
+{
+    EntryDialog dialog{*this, prompt};
+    dialog.run();
+    std::string num = dialog.get_text();
+    double retur = std::stod(num); //convert string to double
+    return value;
+}
+
+int Mainwin::get_int(std::string prompt)
+{
+    EntryDialog dialog{*this, prompt};
+    dialog.run();
+    std::string num = dialog.get_text();
+    int retur = std::stoi(num); //convert string to int
+    return value;
+}
 
 void Mainwin::on_quit_click()
 {
