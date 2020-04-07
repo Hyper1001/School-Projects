@@ -5,7 +5,7 @@
 #include "options.h"
 #include "desktop.h"
 #include "order.h"
-
+#include <fstream>
 class Store {
   public:
     void add_customer(Customer& customer);
@@ -25,6 +25,11 @@ class Store {
     void add_desktop(int desktop, int order); // to order
     int num_orders();
     Order& order(int index);
+
+    Store();
+    Store(std::istream& ist);
+    void save(std::ostream& ost);
+
   private:
     std::vector<Customer> customers;
     std::vector<Options*>  options;
