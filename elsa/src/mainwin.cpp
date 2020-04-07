@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iomanip>
 
-Mainwin::Mainwin() : store{new Store} {
+Mainwin::Mainwin() : store{new Store}, fileName{"untitled.elsa"} {
 
     // /////////////////
     // G U I   S E T U P
@@ -24,8 +24,20 @@ Mainwin::Mainwin() : store{new Store} {
 
     //     F I L E
     // Create a File menu and add to the menu bar
+    Gtk::Menu *menu = Gtk::manage(new Gtk::Menu);
     Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
+    Gtk::MenuItem *menuitem_open = Gtk::manage(new Gtk::MenuItem{"_Open", true});
+	Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem{"_Save", true});
+	Gtk::MenuItem *menuitem_save_as = Gtk::manage(new Gtk::MenuItem{"Save As", false});
+    menuitem_open -> signal_activate().connect([this] {this -> on_open_click();});
+	menuitem_save -> signal_activate().connect([this] {this -> on_save_click();});
+	menuitem_save_as -> signal_activate().connect([this] {this -> on_save_as_click();});
+
     menubar->append(*menuitem_file);
+    menu -> append(*openMenuItem);
+	menu -> append(*saveMenuItem);
+	menu -> append(*saveAsMenuItem);
+
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 
@@ -129,7 +141,7 @@ Mainwin::Mainwin() : store{new Store} {
     eb->add(*data);
     // PACK_EXPAND_WIDGET tells VBox this widget should be as big as possible
     vbox->pack_start(*eb, Gtk::PACK_EXPAND_WIDGET, 0);
-    
+
     // S T A T U S   B A R   D I S P L A Y ////////////////////////////////////
     // Provide a status bar for game messages
     msg = Gtk::manage(new Gtk::Label);
@@ -154,21 +166,21 @@ void Mainwin::on_quit_click() {
 // These 4 methods use an output string stream for format data for display
 // They are invoked by the user via the View menu, and also by the program
 //     when the user needs to select one, e.g., for an order
-void Mainwin::on_view_peripheral_click() { 
+void Mainwin::on_view_peripheral_click() {
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(2);
     oss << "<big><b>Peripherals</b></big><tt>\n\n";
-    for(int i=0; i<store->num_options(); ++i) 
+    for(int i=0; i<store->num_options(); ++i)
         oss << i << ") " << store->option(i) << "\n";
     oss<<"</tt>";
     set_data(oss.str());
     set_msg("");
 }
-void Mainwin::on_view_desktop_click() { 
+void Mainwin::on_view_desktop_click() {
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(2);
     oss << "<big><b>Products</b></big><tt>\n\n";
-    for(int i=0; i<store->num_desktops(); ++i) 
+    for(int i=0; i<store->num_desktops(); ++i)
         oss << i << ") " << store->desktop(i) << "\n";
     oss<<"</tt>";
     set_data(oss.str());
@@ -178,7 +190,7 @@ void Mainwin::on_view_order_click() {
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(2);
     oss << "<big><b>Orders</b></big><tt>\n\n";
-    for(int i=0; i<store->num_orders(); ++i) 
+    for(int i=0; i<store->num_orders(); ++i)
         oss << i << ") " << store->order(i) << "\n\n";
     oss<<"</tt>";
     set_data(oss.str());
@@ -188,17 +200,17 @@ void Mainwin::on_view_customer_click() {
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(2);
     oss << "<big><b>Customers</b></big><tt>\n\n";
-    for(int i=0; i<store->num_customers(); ++i) 
+    for(int i=0; i<store->num_customers(); ++i)
         oss << i << ") " << store->customer(i) << "\n";
     oss<<"</tt>";
-    set_data(oss.str()); 
+    set_data(oss.str());
     set_msg("");
 }
 
 // These methods insert new data into the containers
 // They work exactly like the command line version, except
 //     they use dialogs (via get_string et al).
-void Mainwin::on_insert_peripheral_click() { 
+void Mainwin::on_insert_peripheral_click() {
     std::string peripheral = get_string("Name of new peripheral?");
     double cost = get_double("Cost?");
 
@@ -208,7 +220,7 @@ void Mainwin::on_insert_peripheral_click() {
     on_view_peripheral_click();
     set_msg("Added peripheral " + peripheral);
 }
-void Mainwin::on_insert_desktop_click() { 
+void Mainwin::on_insert_desktop_click() {
     on_view_peripheral_click();
     int desktop = store->new_desktop();
     while(true) {

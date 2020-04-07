@@ -1,6 +1,8 @@
 CXXFLAGS += --std=c++17
 GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 
+all: clean elsa
+run: clean elsa ./elsa
 elsa: main.o mainwin.o entrydialog.o store.o customer.o options.o desktop.o order.o
 	$(CXX) $(CXXFLAGS) main.o mainwin.o entrydialog.o store.o customer.o options.o desktop.o order.o $(GTKFLAGS) -o elsa
 main.o: main.cpp *.h
