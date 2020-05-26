@@ -13,7 +13,7 @@ Cart::~Cart()
         delete i; //delete all items in vectors so no memory left over
     }
 }
-
+//comment
 Cart::Cart(const Cart& cart)
 {
     _customer = cart._customer;
